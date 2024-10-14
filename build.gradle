@@ -1,20 +1,38 @@
 plugins {
     id 'java'
+    id 'maven-publish'
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = 'dev.ceymikey'
 version = '1.0.0'
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "dev.ceymikey"
+            artifactId = "mctiersbridge"
+            version = "1.0.0"
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "McTiersBridge"
+            url = "https://repo.ceymikey.dev/#/releases"
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     maven {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
-    }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/groups/public/"
     }
     maven {
         url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'

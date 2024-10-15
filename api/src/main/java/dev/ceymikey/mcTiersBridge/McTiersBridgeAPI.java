@@ -24,34 +24,37 @@
 
 package dev.ceymikey.mcTiersBridge;
 
-import dev.ceymikey.mcTiersBridge.placeholders.PVanillaTier;
+import dev.ceymikey.mcTiersBridge.util.Types;
+import org.jetbrains.annotations.ApiStatus;
 import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
-public final class McTiersBridge extends JavaPlugin implements Listener {
+public abstract class McTiersBridgeAPI {
+    /**
+     * Gets the instance of McTiersBridgeAPI.
+     */
+    @Getter private static McTiersBridgeAPI instance;
 
-    @Getter
-    private JavaPlugin instance;
+    /**
+     * Gets player's vanilla tier from backend as an integer.
+     * @param player   The player to get the tier from.
+     * @param type     The type of tier to get.
+     * @return         Returns the tier as an integer.
+     */
+    public abstract int getTierAsInt(String player, Types type);
 
-    public McTiersBridge() {
-    }
+    /**
+     * Gets player's vanilla tier from backend as a string.
+     * @param player   The player to get the tier from.
+     * @param type     The type of tier to get.
+     * @return         Returns the tier as a string.
+     */
+    public abstract String getTierAsString(String player, Types type);
 
-    @Override
-    public void onEnable() {
-        instance = this;
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            Bukkit.getPluginManager().registerEvents(this, this);
-        } else {
-            getLogger().warning("Could not find PlaceholderAPI! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin(this);
+    @ApiStatus.Internal
+    public static void setInstance(McTiersBridgeAPI newInstance) {
+        if (instance != null) {
+            throw new IllegalStateException("McTiersBridgeAPI instance is already set!");
         }
-
-        /* Here we safely register the PAPI placeholder. */
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new PVanillaTier().register();
-        }
-
+        McTiersBridgeAPI.instance = newInstance;
     }
 }

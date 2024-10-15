@@ -27,19 +27,19 @@ package dev.ceymikey.mcTiersBridge.util;
 import com.google.gson.JsonObject;
 
 /**
- * Using enums instead of a Types class to avoid
- * if-else statement spaghetti code in the Https class.
+ * Types class for the McTierBridge API.
+ * Registering these types in TypeRegistry.
  */
-public enum Types {
-    VANILLA {
+public abstract class Types {
+    public static Types VANILLA = new Types() {
         @Override
         public int getTier(JsonObject jsonObject) {
             JsonObject rankings = jsonObject.getAsJsonObject("rankings");
             JsonObject vanilla = rankings.getAsJsonObject("vanilla");
             return vanilla.get("tier").getAsInt();
         }
-    },
-    OVERALL {
+    };
+    public static Types OVERALL = new Types() {
         @Override
         public int getTier(JsonObject jsonObject) {
             return jsonObject.get("overall").getAsInt();

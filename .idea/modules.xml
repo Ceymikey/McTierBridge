@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/McTiersBridge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/McTiersBridge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/McTiersBridge.api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/McTiersBridge.api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/14107578/McTiersBridge.bukkit.main.iml" filepath="$PROJECT_DIR$/.idea/modules/14107578/McTiersBridge.bukkit.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1803754291/McTiersBridge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1803754291/McTiersBridge.main.iml" />
     </modules>
   </component>
 </project>

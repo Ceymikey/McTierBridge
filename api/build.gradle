@@ -49,6 +49,6 @@ tasks.jar {
     dependsOn(tasks.shadowJar)
 }
 
-task prepareKotlinBuildScriptModel {
-
-}
+// TODO: Take care of these later
+task wrapper
+task prepareKotlinBuildScriptModel

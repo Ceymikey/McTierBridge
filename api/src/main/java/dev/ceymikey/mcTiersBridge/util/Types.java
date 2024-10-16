@@ -45,9 +45,21 @@ public abstract class Types {
             return jsonObject.get("overall").getAsInt();
         }
     };
+    /**
+     * This type is a little bit different this gets your tiers position value
+     * rather than the tier value as an int (ht - Hight tier. lt - Low tier)
+     */
+    public static Types POSITION = new Types() {
+        @Override
+        public int getTier(JsonObject jsonObject) {
+            JsonObject rankings = jsonObject.getAsJsonObject("rankings");
+            JsonObject vanilla = rankings.getAsJsonObject("vanilla");
+            return vanilla.get("pos").getAsInt();
+        }
+    };
 
     /**
-     * Forces getTier method to be implemented in all enum values.
+     * Forces getTier method to be implemented in all values.
      * @param jsonObject  JsonObject containing the tier information
      * @return            Returns tier value
      */

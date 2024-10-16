@@ -70,8 +70,4 @@ public class TierBridge extends McTiersBridgeAPI {
         }
         return tier;
     }
-
-    public void ScaryMethod() {
-        System.out.println("This is a scary method");
-    }
 }

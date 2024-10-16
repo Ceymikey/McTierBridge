@@ -25,6 +25,7 @@
 package dev.ceymikey.mcTiersBridge.placeholders;
 
 import dev.ceymikey.mcTiersBridge.util.Https;
+import dev.ceymikey.mcTiersBridge.util.TierBridge;
 import dev.ceymikey.mcTiersBridge.util.Types;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -53,17 +54,10 @@ public class PVanillaTier extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, String params) {
-        /**
-         * We build a new HTTPS connection from here.
-         * We than use the data from the builder
-         */
-        Https request = new Https.builder()
-                .setEndpoint("https://mctiers.com/api/search_profile/" + params)
-                .setType(Types.VANILLA)
-                .build();
+        TierBridge bridge = new TierBridge();
         if (params.equals(params)) {
             try {
-                int tier = request.returnTier();
+                int tier = bridge.getTierAsInt(params, Types.VANILLA);
                 return String.valueOf(tier);
             } catch (Exception e) {
                 e.printStackTrace();

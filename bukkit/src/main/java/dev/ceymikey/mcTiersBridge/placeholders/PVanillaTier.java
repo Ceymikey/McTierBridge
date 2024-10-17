@@ -27,7 +27,9 @@ package dev.ceymikey.mcTiersBridge.placeholders;
 import dev.ceymikey.mcTiersBridge.util.TierBridge;
 import dev.ceymikey.mcTiersBridge.util.Types;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class PVanillaTier extends PlaceholderExpansion {
@@ -54,6 +56,21 @@ public class PVanillaTier extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         TierBridge bridge = new TierBridge();
+        // TODO: Separate classes for args
+        String[] args = params.split("_");
+        if (args[0].equals("vanilla")) {
+            Player targetPlayer = Bukkit.getPlayerExact(args[1]);
+            if (targetPlayer != null) {
+                try {
+                    Object tier = bridge.getTier(args[1], Types.VANILLA);
+                    Object pos = bridge.getTier(args[1], Types.POSITION);
+                    return pos + "" + tier;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "ERROR_400";
+                }
+            }
+        }
         if (params.equals(params)) {
             try {
                 Object tier = bridge.getTier(params, Types.VANILLA);

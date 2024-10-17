@@ -53,7 +53,7 @@ public class Https {
     }
 
     public Object returnTier() throws Exception {
-        return CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Object> future = CompletableFuture.supplyAsync(() -> {
             try {
                 URL url = new URL(getEndpoint());
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -76,7 +76,6 @@ public class Https {
                     JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
 
                     Object tier = type.getTier(jsonObject);
-                    Object pos = type.getTier(jsonObject);
 
                     connection.disconnect();
                     return tier;
@@ -87,6 +86,7 @@ public class Https {
                 throw new RuntimeException("Error fetching tier", e);
             }
         }, threadpool);
+        return future.join();
     }
 
     /**

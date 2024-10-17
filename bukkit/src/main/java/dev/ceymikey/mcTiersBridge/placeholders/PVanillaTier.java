@@ -71,16 +71,6 @@ public class PVanillaTier extends PlaceholderExpansion {
                 }
             }
         }
-        if (params.equals(params)) {
-            try {
-                Object tier = bridge.getTier(params, Types.VANILLA);
-                Object pos = bridge.getTier(params, Types.POSITION);
-                return pos + "" + tier;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "ERROR_400";
-            }
-        }
         return null;
     }
 }

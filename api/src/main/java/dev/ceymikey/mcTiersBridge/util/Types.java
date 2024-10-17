@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
 public abstract class Types {
     public static Types VANILLA = new Types() {
         @Override
-        public int getTier(JsonObject jsonObject) {
+        public Object getTier(JsonObject jsonObject) {
             JsonObject rankings = jsonObject.getAsJsonObject("rankings");
             JsonObject vanilla = rankings.getAsJsonObject("vanilla");
             return vanilla.get("tier").getAsInt();
@@ -41,7 +41,7 @@ public abstract class Types {
     };
     public static Types OVERALL = new Types() {
         @Override
-        public int getTier(JsonObject jsonObject) {
+        public Object getTier(JsonObject jsonObject) {
             return jsonObject.get("overall").getAsInt();
         }
     };
@@ -51,10 +51,18 @@ public abstract class Types {
      */
     public static Types POSITION = new Types() {
         @Override
-        public int getTier(JsonObject jsonObject) {
+        public Object getTier(JsonObject jsonObject) {
             JsonObject rankings = jsonObject.getAsJsonObject("rankings");
             JsonObject vanilla = rankings.getAsJsonObject("vanilla");
-            return vanilla.get("pos").getAsInt();
+            int pos = vanilla.get("pos").getAsInt();
+            switch (pos) {
+                case 0:
+                    return "ht";
+                case 1:
+                    return "lt";
+                default:
+                    return "Unknown tier";
+            }
         }
     };
 
@@ -63,5 +71,5 @@ public abstract class Types {
      * @param jsonObject  JsonObject containing the tier information
      * @return            Returns tier value
      */
-    public abstract int getTier(JsonObject jsonObject);
+    public abstract Object getTier(JsonObject jsonObject);
 }

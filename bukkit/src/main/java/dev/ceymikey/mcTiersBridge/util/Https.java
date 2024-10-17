@@ -47,7 +47,7 @@ public class Https {
         this.type = builder.getType();
     }
 
-    public int returnTier() throws Exception {
+    public Object returnTier() throws Exception {
         URL url = new URL(getEndpoint());
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -68,7 +68,8 @@ public class Https {
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
 
-            int tier = type.getTier(jsonObject);
+            Object tier = type.getTier(jsonObject);
+            Object pos = type.getTier(jsonObject);
 
             connection.disconnect();
             return tier;

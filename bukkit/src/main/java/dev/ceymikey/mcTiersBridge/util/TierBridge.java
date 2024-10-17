@@ -34,35 +34,15 @@ public class TierBridge extends McTiersBridgeAPI {
     /**
      * Gets the players MCTIER from the official backend
      * @param player  the player to get the rank from
-     * @param type    the type of rank to get
-     * @return        returns the rank as a string
+     * @param type    the type of rank data to get
+     * @return        returns the players tier
      */
-    public String getTierAsString(String player, Types type) {
+    public Object getTier(String player, Types type) {
         Https request = new Https.builder()
                 .setEndpoint("https://mctiers.com/api/search_profile/" + player)
                 .setType(type)
                 .build();
-        int tier;
-        try {
-            tier = request.returnTier();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return String.valueOf(tier);
-    }
-
-    /**
-     * Gets the players MCTIER from the official backend
-     * @param player the player to get the rank from
-     * @param type   the type of rank to get
-     * @return       returns the rank as an int
-     */
-    public int getTierAsInt(String player, Types type) {
-        Https request = new Https.builder()
-                .setEndpoint("https://mctiers.com/api/search_profile/" + player)
-                .setType(type)
-                .build();
-        int tier;
+        Object tier;
         try {
             tier = request.returnTier();
         } catch (Exception e) {

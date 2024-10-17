@@ -38,9 +38,6 @@ public final class McTiersBridge extends JavaPlugin implements Listener {
     @Getter
     private JavaPlugin instance;
 
-    public McTiersBridge() {
-    }
-
     @Override
     public void onEnable() {
         instance = this;
@@ -64,5 +61,6 @@ public final class McTiersBridge extends JavaPlugin implements Listener {
     public void registerTypes() {
         TypeRegistry.register("vanilla", Types.VANILLA);
         TypeRegistry.register("overall", Types.OVERALL);
+        TypeRegistry.register("position", Types.POSITION);
     }
 }

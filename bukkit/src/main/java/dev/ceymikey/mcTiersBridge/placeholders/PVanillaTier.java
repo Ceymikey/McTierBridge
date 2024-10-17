@@ -24,7 +24,6 @@
 
 package dev.ceymikey.mcTiersBridge.placeholders;
 
-import dev.ceymikey.mcTiersBridge.util.Https;
 import dev.ceymikey.mcTiersBridge.util.TierBridge;
 import dev.ceymikey.mcTiersBridge.util.Types;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -57,8 +56,9 @@ public class PVanillaTier extends PlaceholderExpansion {
         TierBridge bridge = new TierBridge();
         if (params.equals(params)) {
             try {
-                int tier = bridge.getTierAsInt(params, Types.VANILLA);
-                return String.valueOf(tier);
+                Object tier = bridge.getTier(params, Types.VANILLA);
+                Object pos = bridge.getTier(params, Types.POSITION);
+                return pos + "" + tier;
             } catch (Exception e) {
                 e.printStackTrace();
                 return "ERROR_400";

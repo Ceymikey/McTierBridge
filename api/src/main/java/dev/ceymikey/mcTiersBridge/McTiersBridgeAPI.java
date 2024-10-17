@@ -40,15 +40,7 @@ public abstract class McTiersBridgeAPI {
      * @param type     The type of tier to get.
      * @return         Returns the tier as an integer.
      */
-    public abstract int getTierAsInt(String player, Types type);
-
-    /**
-     * Gets player's vanilla tier from backend as a string.
-     * @param player   The player to get the tier from.
-     * @param type     The type of tier to get.
-     * @return         Returns the tier as a string.
-     */
-    public abstract String getTierAsString(String player, Types type);
+    public abstract Object getTier(String player, Types type);
 
     @ApiStatus.Internal
     public static void setInstance(McTiersBridgeAPI newInstance) {

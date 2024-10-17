@@ -32,6 +32,9 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * This class is used to open HTTPS connections to
@@ -39,43 +42,51 @@ import java.net.URL;
  */
 @Getter
 public class Https {
+    private final ExecutorService threadpool;
     private final String endpoint;
     private final Types type;
 
     private Https(builder builder) {
         this.endpoint = builder.getEndpoint();
         this.type = builder.getType();
+        this.threadpool = Executors.newCachedThreadPool();
     }
 
     public Object returnTier() throws Exception {
-        URL url = new URL(getEndpoint());
-        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Accept", "application/json");
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                URL url = new URL(getEndpoint());
+                HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/json");
 
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpsURLConnection.HTTP_OK) {
-            StringBuilder responseBuilder = new StringBuilder();
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String line;
-                while ((line = in.readLine()) != null) {
-                    responseBuilder.append(line);
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    StringBuilder responseBuilder = new StringBuilder();
+                    try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                        String line;
+                        while ((line = in.readLine()) != null) {
+                            responseBuilder.append(line);
+                        }
+                    }
+
+                    String response = responseBuilder.toString();
+
+                    Gson gson = new Gson();
+                    JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
+
+                    Object tier = type.getTier(jsonObject);
+                    Object pos = type.getTier(jsonObject);
+
+                    connection.disconnect();
+                    return tier;
+                } else {
+                    throw new Exception("Failed to fetch info: " + responseCode);
                 }
+            } catch (Exception e) {
+                throw new RuntimeException("Error fetching tier", e);
             }
-
-            String response = responseBuilder.toString();
-
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
-
-            Object tier = type.getTier(jsonObject);
-            Object pos = type.getTier(jsonObject);
-
-            connection.disconnect();
-            return tier;
-        } else {
-            throw new Exception("Failed to fetch info: " + responseCode);
-        }
+        }, threadpool);
     }
 
     /**

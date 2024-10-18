@@ -52,7 +52,7 @@ public class Https {
         this.threadpool = Executors.newCachedThreadPool();
     }
 
-    public Object returnTier() throws Exception {
+    public Object returnTier() {
         CompletableFuture<Object> future = CompletableFuture.supplyAsync(() -> {
             try {
                 URL url = new URL(getEndpoint());

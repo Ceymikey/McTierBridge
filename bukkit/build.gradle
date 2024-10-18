@@ -1,10 +1,7 @@
 plugins {
     id 'java'
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
-
-group = 'dev.ceymikey'
-version = '1.0.0'
 
 repositories {
     mavenLocal()
@@ -15,21 +12,8 @@ repositories {
 
 dependencies {
     implementation project(":api")
-    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.6")
-    compileOnly("org.projectlombok:lombok:1.18.34")
-    annotationProcessor("org.projectlombok:lombok:1.18.34")
-}
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-}
-
-tasks.jar {
-    dependsOn(tasks.shadowJar)
-}
-
-shadowJar {
-    archiveClassifier.set("")
+    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
 }
 

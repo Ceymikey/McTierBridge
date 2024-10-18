@@ -24,6 +24,7 @@
 
 package dev.ceymikey.mcTiersBridge;
 
+import dev.ceymikey.mcTiersBridge.metrics.Metrics;
 import dev.ceymikey.mcTiersBridge.placeholders.BasicHolder;
 import dev.ceymikey.mcTiersBridge.util.TierBridge;
 import dev.ceymikey.mcTiersBridge.util.TypeRegistry;
@@ -35,8 +36,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class McTiersBridge extends JavaPlugin implements Listener {
 
-    @Getter
-    private JavaPlugin instance;
+    @Getter private JavaPlugin instance;
+    private Metrics metrics;
+    private static final int pluginId = 23667;
 
     @Override
     public void onEnable() {
@@ -51,6 +53,9 @@ public final class McTiersBridge extends JavaPlugin implements Listener {
         registerTypes();
         /* Here we safely register the API. */
         McTiersBridgeAPI.setInstance(new TierBridge());
+
+        /* I love metrics :D */
+        metrics = new Metrics(this, pluginId);
 
         /* Here we safely register the PAPI placeholder. */
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {

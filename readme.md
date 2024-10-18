@@ -3,8 +3,18 @@
 Mctiersbridge is a Minecraft plugin that fetches tier info from  the official [mctiers tierlist](https://mctiers.com/ranking/overall) backend and implements [PAPI](https://github.com/PlaceholderAPI/PlaceholderAPI) to register placeholders based on tier info of the player. Also comes equipped with a developer API.
 
 ## Small documentation
-```java
+```kotlin
+// Adding the project - build.gradle
+repositories {
+    maven {
+        name "ceymikeydev"
+        url "https://repo.ceymikey.dev/releases"
+    }
+}
 
+dependencies {
+    implementation "dev.ceymikey:mctiersbridge-api:1.0.0"
+}
 ```
 
 ## Placeholders

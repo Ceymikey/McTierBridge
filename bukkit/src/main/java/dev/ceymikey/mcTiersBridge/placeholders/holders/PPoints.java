@@ -32,17 +32,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 @Placeholder(
-        name = "overall"
+        name = "points"
 )
-public class POverall extends Holder {
+public class PPoints extends Holder {
     @Override
     public String process(String[] args) {
         TierBridge bridge = new TierBridge();
         Player targetPlayer = Bukkit.getPlayerExact(args[1]);
         if (targetPlayer != null) {
             try {
-                Object overall = bridge.getTier(args[1], Types.OVERALL);
-                return String.valueOf(overall);
+                Object points = bridge.getTier(args[1], Types.POINTS);
+                return String.valueOf(points);
             } catch (Exception e) {
                 e.printStackTrace();
                 return "ERROR_400";

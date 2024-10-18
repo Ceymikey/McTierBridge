@@ -24,6 +24,8 @@
 
 package dev.ceymikey.mcTiersBridge.placeholders;
 
+import dev.ceymikey.mcTiersBridge.placeholders.holders.PPoints;
+import dev.ceymikey.mcTiersBridge.placeholders.holders.PRegion;
 import dev.ceymikey.mcTiersBridge.placeholders.holders.PVanilla;
 import dev.ceymikey.mcTiersBridge.placeholders.holders.POverall;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -38,6 +40,8 @@ public class BasicHolder extends PlaceholderExpansion {
     public BasicHolder() {
         subHolder.add(new PVanilla());
         subHolder.add(new POverall());
+        subHolder.add(new PPoints());
+        subHolder.add(new PRegion());
     }
 
     @Override

@@ -45,6 +45,18 @@ public abstract class Types {
             return jsonObject.get("overall").getAsInt();
         }
     };
+    public static Types REGION = new Types() {
+        @Override
+        public Object getTier(JsonObject jsonObject) {
+            return jsonObject.get("region").getAsString();
+        }
+    };
+    public static Types POINTS = new Types() {
+        @Override
+        public Object getTier(JsonObject jsonObject) {
+            return jsonObject.get("points").getAsInt();
+        }
+    };
     /**
      * This type is a little bit different this gets your tiers position value
      * rather than the tier value as an int (ht - Hight tier. lt - Low tier)
@@ -68,7 +80,7 @@ public abstract class Types {
 
     /**
      * Forces getTier method to be implemented in all values.
-     * @param jsonObject  JsonObject containing the tier information
+     * @param jsonObject  JsonObject containing the tier data
      * @return            Returns tier value
      */
     public abstract Object getTier(JsonObject jsonObject);

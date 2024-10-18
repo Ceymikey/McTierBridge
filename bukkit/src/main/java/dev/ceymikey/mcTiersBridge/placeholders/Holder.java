@@ -24,13 +24,22 @@
 
 package dev.ceymikey.mcTiersBridge.placeholders;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import lombok.Getter;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Placeholder {
-    String name() default "";
+@Getter
+public abstract class Holder {
+    protected final Placeholder data;
+
+    protected Holder() {
+        data = getClass().getAnnotation(Placeholder.class);
+        if (data == null) {
+            throw new RuntimeException("SubCommand must be annotated with @Placeholder");
+        }
+    }
+
+    public abstract String process(String[] args);
+
+    public String getName() {
+        return data.name();
+    }
 }

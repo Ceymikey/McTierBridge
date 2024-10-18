@@ -22,53 +22,31 @@
  * SOFTWARE.
  */
 
-package dev.ceymikey.mcTiersBridge.placeholders;
+package dev.ceymikey.mcTiersBridge.placeholders.holders;
 
+import dev.ceymikey.mcTiersBridge.placeholders.Holder;
+import dev.ceymikey.mcTiersBridge.placeholders.Placeholder;
 import dev.ceymikey.mcTiersBridge.util.TierBridge;
 import dev.ceymikey.mcTiersBridge.util.Types;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-public class PVanillaTier extends PlaceholderExpansion {
+@Placeholder(
+        name = "vanilla"
+)
+public class PVanilla extends Holder {
     @Override
-    public @NotNull String getIdentifier() {
-        return "TierBridge";
-    }
-
-    @Override
-    public @NotNull String getAuthor() {
-        return "Ceymikey";
-    }
-
-    @Override
-    public @NotNull String getVersion() {
-        return "V++";
-    }
-
-    @Override
-    public boolean persist() {
-        return true;
-    }
-
-    @Override
-    public String onRequest(OfflinePlayer player, String params) {
+    public String process(String[] args) {
         TierBridge bridge = new TierBridge();
-        // TODO: Separate classes for args
-        String[] args = params.split("_");
-        if (args[0].equals("vanilla")) {
-            Player targetPlayer = Bukkit.getPlayerExact(args[1]);
-            if (targetPlayer != null) {
-                try {
-                    Object tier = bridge.getTier(args[1], Types.VANILLA);
-                    Object pos = bridge.getTier(args[1], Types.POSITION);
-                    return pos + "" + tier;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return "ERROR_400";
-                }
+        Player targetPlayer = Bukkit.getPlayerExact(args[1]);
+        if (targetPlayer != null) {
+            try {
+                Object tier = bridge.getTier(args[1], Types.VANILLA);
+                Object pos = bridge.getTier(args[1], Types.POSITION);
+                return pos + "" + tier;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "ERROR_400";
             }
         }
         return null;

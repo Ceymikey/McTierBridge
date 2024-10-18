@@ -22,45 +22,32 @@
  * SOFTWARE.
  */
 
-package dev.ceymikey.mcTiersBridge;
+package dev.ceymikey.mcTiersBridge.placeholders.holders;
 
-import dev.ceymikey.mcTiersBridge.placeholders.BasicHolder;
+import dev.ceymikey.mcTiersBridge.placeholders.Holder;
+import dev.ceymikey.mcTiersBridge.placeholders.Placeholder;
 import dev.ceymikey.mcTiersBridge.util.TierBridge;
-import dev.ceymikey.mcTiersBridge.util.TypeRegistry;
 import dev.ceymikey.mcTiersBridge.util.Types;
-import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
 
-public final class McTiersBridge extends JavaPlugin implements Listener {
-
-    @Getter
-    private JavaPlugin instance;
-
+@Placeholder(
+        name = "overall"
+)
+public class POverall extends Holder {
     @Override
-    public void onEnable() {
-        instance = this;
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            Bukkit.getPluginManager().registerEvents(this, this);
-        } else {
-            getLogger().warning("Could not find PlaceholderAPI! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin(this);
+    public String process(String[] args) {
+        TierBridge bridge = new TierBridge();
+        Player targetPlayer = Bukkit.getPlayerExact(args[1]);
+        if (targetPlayer != null) {
+            try {
+                Object tier = bridge.getTier(args[1], Types.OVERALL);
+                return String.valueOf(tier);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "ERROR_400";
+            }
         }
-
-        registerTypes();
-        /* Here we safely register the API. */
-        McTiersBridgeAPI.setInstance(new TierBridge());
-
-        /* Here we safely register the PAPI placeholder. */
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new BasicHolder().register();
-        }
-    }
-
-    public void registerTypes() {
-        TypeRegistry.register("vanilla", Types.VANILLA);
-        TypeRegistry.register("overall", Types.OVERALL);
-        TypeRegistry.register("position", Types.POSITION);
+        return null;
     }
 }

@@ -24,13 +24,50 @@
 
 package dev.ceymikey.mcTiersBridge.placeholders;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import dev.ceymikey.mcTiersBridge.placeholders.holders.PVanilla;
+import dev.ceymikey.mcTiersBridge.placeholders.holders.POverall;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Placeholder {
-    String name() default "";
+import java.util.ArrayList;
+
+public class BasicHolder extends PlaceholderExpansion {
+    private final ArrayList<Holder> subHolder = new ArrayList<>();
+
+    public BasicHolder() {
+        subHolder.add(new PVanilla());
+        subHolder.add(new POverall());
+    }
+
+    @Override
+    public @NotNull String getIdentifier() {
+        return "TierBridge";
+    }
+
+    @Override
+    public @NotNull String getAuthor() {
+        return "Ceymikey";
+    }
+
+    @Override
+    public @NotNull String getVersion() {
+        return "V++";
+    }
+
+    @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
+    public String onRequest(OfflinePlayer player, String params) {
+        String[] args = params.split("_");
+        for (int i = 0; i < subHolder.size(); i++) {
+            if (args[0].equalsIgnoreCase(subHolder.get(i).getName())) {
+                return subHolder.get(i).process(args);
+            }
+        }
+        return null;
+    }
 }

@@ -2,6 +2,12 @@
 
 Mctiersbridge is a Minecraft plugin that fetches tier info from  the official [mctiers tierlist](https://mctiers.com/ranking/overall) backend and implements [PAPI](https://github.com/PlaceholderAPI/PlaceholderAPI) to register placeholders based on tier info of the player. Also comes equipped with a developer API.
 
+## Placeholders
+- `%TierBridge_vanilla_{player}%` - Returns the vanilla tier of the player.
+- `%TierBridge_overall_{player}%` - Returns the overall rank of the player.
+- `%TierBridge_region_{player}%` - Returns the region of the player.
+- `%TierBridge_points_{player}%` - Returns the overall points of the player.
+
 ## Compatibility
 | Server software                                           | Version | Supported |
 |-----------------------------------------------------------|---------|-----------|

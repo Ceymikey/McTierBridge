@@ -1,5 +1,5 @@
 /*
- * This file is part of McTierBridge, https://github.com/Ceymikey/McTierBridge
+ * This file is part of McTiersBridge, https://github.com/Ceymikey/McTiersBridge
  *
  * Copyright (c) 2024 Ceymikeydev and contributors
  *
@@ -37,7 +37,7 @@ public class TierBridge extends McTiersBridgeAPI {
      * @param type    the type of rank data to get
      * @return        returns the players tier
      */
-    public Object getTier(String player, Types type) {
+    public Object getData(String player, Types type) {
         Https request = new Https.builder()
                 .setEndpoint("https://mctiers.com/api/search_profile/" + player)
                 .setType(type)

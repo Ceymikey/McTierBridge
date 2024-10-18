@@ -1,5 +1,5 @@
 /*
- * This file is part of McTierBridge, https://github.com/Ceymikey/McTierBridge
+ * This file is part of McTiersBridge, https://github.com/Ceymikey/McTiersBridge
  *
  * Copyright (c) 2024 Ceymikeydev and contributors
  *
@@ -41,7 +41,7 @@ public class PRegion extends Holder {
         Player targetPlayer = Bukkit.getPlayerExact(args[1]);
         if (targetPlayer != null) {
             try {
-                Object region = bridge.getTier(args[1], Types.REGION);
+                Object region = bridge.getData(args[1], Types.REGION);
                 return String.valueOf(region);
             } catch (Exception e) {
                 e.printStackTrace();

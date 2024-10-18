@@ -1,5 +1,5 @@
 /*
- * This file is part of McTierBridge, https://github.com/Ceymikey/McTierBridge
+ * This file is part of McTiersBridge, https://github.com/Ceymikey/McTiersBridge
  *
  * Copyright (c) 2024 Ceymikeydev and contributors
  *
@@ -41,8 +41,8 @@ public class PVanilla extends Holder {
         Player targetPlayer = Bukkit.getPlayerExact(args[1]);
         if (targetPlayer != null) {
             try {
-                Object tier = bridge.getTier(args[1], Types.VANILLA);
-                Object pos = bridge.getTier(args[1], Types.POSITION);
+                Object tier = bridge.getData(args[1], Types.VANILLA);
+                Object pos = bridge.getData(args[1], Types.POSITION);
                 return pos + "" + tier;
             } catch (Exception e) {
                 e.printStackTrace();

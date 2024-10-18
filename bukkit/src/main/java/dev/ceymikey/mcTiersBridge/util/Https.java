@@ -1,5 +1,5 @@
 /*
- * This file is part of McTierBridge, https://github.com/Ceymikey/McTierBridge
+ * This file is part of McTiersBridge, https://github.com/Ceymikey/McTiersBridge
  *
  * Copyright (c) 2024 Ceymikeydev and contributors
  *

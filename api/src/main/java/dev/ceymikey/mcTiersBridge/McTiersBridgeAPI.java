@@ -1,5 +1,5 @@
 /*
- * This file is part of McTierBridge, https://github.com/Ceymikey/McTierBridge
+ * This file is part of McTiersBridge, https://github.com/Ceymikey/McTiersBridge
  *
  * Copyright (c) 2024 Ceymikeydev and contributors
  *
@@ -35,12 +35,12 @@ public abstract class McTiersBridgeAPI {
     @Getter private static McTiersBridgeAPI instance;
 
     /**
-     * Gets player's vanilla tier from backend as an integer.
-     * @param player   The player to get the tier from.
-     * @param type     The type of tier to get.
-     * @return         Returns the tier as an integer.
+     * Gets player's tier data from backend as an integer.
+     * @param player   The player to get the data from.
+     * @param type     The type of data to get.
+     * @return         Returns the requested player data.
      */
-    public abstract Object getTier(String player, Types type);
+    public abstract Object getData(String player, Types type);
 
     @ApiStatus.Internal
     public static void setInstance(McTiersBridgeAPI newInstance) {

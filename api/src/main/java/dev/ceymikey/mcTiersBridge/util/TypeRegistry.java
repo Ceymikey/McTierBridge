@@ -24,13 +24,19 @@
 
 package dev.ceymikey.mcTiersBridge.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@UtilityClass
 public class TypeRegistry {
     public static final Types VANILLA = get("vanilla");
     public static final Types OVERALL = get("overall");
+    public static final Types POSITION = get("position");
+    public static final Types POINTS = get("points");
+    public static final Types REGION = get("region");
 
     private static Map<String, Types> registry = new ConcurrentHashMap<>();
 
